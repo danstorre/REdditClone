@@ -24,3 +24,50 @@ struct Post: Hashable {
         return lhs.identifier == rhs.identifier
     }
 }
+
+extension Post: Decodable {
+    
+    enum PostCodingKeys: String, CodingKey {
+        case kind
+        case data
+    }
+    
+     enum ItemPostCodingKeys: String, CodingKey {
+           case title
+           case author
+           case thumbnail
+           case entryDate = "created_utc"
+           case num_comments
+    }
+    
+    init(from decoder: Decoder) throws {
+           let values = try decoder.container(keyedBy: PostCodingKeys.self)
+           let itemValues = try values.nestedContainer(keyedBy: ItemPostCodingKeys.self, forKey: .data)
+        
+           title = try itemValues.decode(String.self, forKey: .title)
+           entryDate = try itemValues.decode(Date.self, forKey: .title)
+           postImageURL = try itemValues.decode(URL.self, forKey: .title)
+           comments = try itemValues.decode(Int.self, forKey: .title)
+           description = try itemValues.decode(String.self, forKey: .title)
+    }
+}
+
+struct ListPost: Decodable {
+    
+    var posts: [Post]
+    
+    enum PostCodingKeys: String, CodingKey {
+        case kind
+        case data
+    }
+    
+    enum NestedLevel1PostCodingKeys: String, CodingKey {
+        case children
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: PostCodingKeys.self)
+        let firstLevel = try values.nestedContainer(keyedBy: NestedLevel1PostCodingKeys.self, forKey: .data)
+        posts = try firstLevel.decode([Post].self, forKey: .children)
+    }
+}
