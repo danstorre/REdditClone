@@ -15,6 +15,9 @@
 		FB3643BF23D8F483004FE015 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB3643BD23D8F483004FE015 /* LaunchScreen.storyboard */; };
 		FB3643CA23D8F484004FE015 /* reddit_cloneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3643C923D8F484004FE015 /* reddit_cloneTests.swift */; };
 		FB3643D523D8F484004FE015 /* reddit_cloneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3643D423D8F484004FE015 /* reddit_cloneUITests.swift */; };
+		FB3643E323D8FD89004FE015 /* PostsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3643E223D8FD89004FE015 /* PostsTableViewDataSource.swift */; };
+		FB3643E523D8FE2C004FE015 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3643E423D8FE2C004FE015 /* Post.swift */; };
+		FB3643E923D8FF1F004FE015 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3643E823D8FF1F004FE015 /* PostTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		FB3643D023D8F484004FE015 /* reddit-cloneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "reddit-cloneUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB3643D423D8F484004FE015 /* reddit_cloneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reddit_cloneUITests.swift; sourceTree = "<group>"; };
 		FB3643D623D8F484004FE015 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB3643E223D8FD89004FE015 /* PostsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsTableViewDataSource.swift; sourceTree = "<group>"; };
+		FB3643E423D8FE2C004FE015 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		FB3643E823D8FF1F004FE015 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,8 @@
 		FB3643B123D8F47C004FE015 /* reddit-clone */ = {
 			isa = PBXGroup;
 			children = (
+				FB3643E723D8FEFF004FE015 /* View */,
+				FB3643E623D8FE2F004FE015 /* Model */,
 				FB3643B223D8F47C004FE015 /* AppDelegate.swift */,
 				FB3643B423D8F47C004FE015 /* SceneDelegate.swift */,
 				FB3643B623D8F47C004FE015 /* ViewController.swift */,
@@ -106,6 +114,7 @@
 				FB3643BB23D8F483004FE015 /* Assets.xcassets */,
 				FB3643BD23D8F483004FE015 /* LaunchScreen.storyboard */,
 				FB3643C023D8F483004FE015 /* Info.plist */,
+				FB3643E223D8FD89004FE015 /* PostsTableViewDataSource.swift */,
 			);
 			path = "reddit-clone";
 			sourceTree = "<group>";
@@ -126,6 +135,22 @@
 				FB3643D623D8F484004FE015 /* Info.plist */,
 			);
 			path = "reddit-cloneUITests";
+			sourceTree = "<group>";
+		};
+		FB3643E623D8FE2F004FE015 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FB3643E423D8FE2C004FE015 /* Post.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FB3643E723D8FEFF004FE015 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FB3643E823D8FF1F004FE015 /* PostTableViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +284,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB3643E323D8FD89004FE015 /* PostsTableViewDataSource.swift in Sources */,
 				FB3643B723D8F47C004FE015 /* ViewController.swift in Sources */,
 				FB3643B323D8F47C004FE015 /* AppDelegate.swift in Sources */,
 				FB3643B523D8F47C004FE015 /* SceneDelegate.swift in Sources */,
+				FB3643E523D8FE2C004FE015 /* Post.swift in Sources */,
+				FB3643E923D8FF1F004FE015 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
