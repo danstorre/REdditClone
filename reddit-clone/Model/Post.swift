@@ -8,8 +8,32 @@
 
 import Foundation
 
+protocol Readable {
+    var isRead: Bool { get set }
+}
+
+protocol Deletable {
+    var isDeleted: Bool {get set}
+}
+
+struct PostView: Readable, Deletable{
+    var post: Post
+    var isRead: Bool
+    var isDeleted: Bool
+    
+    init(post: Post, isRead: Bool) {
+        self.post = post
+        self.isRead = isRead
+        self.isDeleted = false
+    }
+}
+
 struct Post: Hashable {
-    let name: String
+    let title: String
+    let entryDate: Date
+    let postImageURL: URL
+    let comments: Int
+    let description: String
     let identifier = UUID()
 
     func hash(into hasher: inout Hasher) {
@@ -18,12 +42,5 @@ struct Post: Hashable {
 
     static func ==(lhs: Post, rhs: Post) -> Bool {
         return lhs.identifier == rhs.identifier
-    }
-
-    func contains(query: String?) -> Bool {
-        guard let query = query else { return true }
-        guard !query.isEmpty else { return true }
-        let lowerCasedQuery = query.lowercased()
-        return name.lowercased().contains(lowerCasedQuery)
     }
 }
