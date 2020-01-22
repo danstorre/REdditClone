@@ -12,11 +12,11 @@ class PostTableViewCell: UITableViewCell {
     
     @IBOutlet var titlePostLabel: UILabel!
     @IBOutlet var entryDate: UILabel!
-    @IBOutlet var readIconImage: UIImage!
-    @IBOutlet var postImage: UIImage!
-    @IBOutlet var commentsLabel: UIImage!
+    @IBOutlet var readIconImage: UIImageView!
+    @IBOutlet var postImage: UIImageView!
+    @IBOutlet var commentsLabel: UILabel!
     @IBOutlet var dismissPostButton: UIButton!
-    @IBOutlet var descriptionLabel: UIButton!
+    @IBOutlet var descriptionLabel: UILabel!
     
 
     override func awakeFromNib() {
