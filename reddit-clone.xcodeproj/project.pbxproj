@@ -20,6 +20,7 @@
 		FB3643E923D8FF1F004FE015 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3643E823D8FF1F004FE015 /* PostTableViewCell.swift */; };
 		FB3643EB23D90557004FE015 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3643EA23D90557004FE015 /* PostView.swift */; };
 		FB3643EE23D907A3004FE015 /* topsample.json in Resources */ = {isa = PBXBuildFile; fileRef = FB3643ED23D907A3004FE015 /* topsample.json */; };
+		FB3643F123D9173D004FE015 /* ListPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3643F023D9173D004FE015 /* ListPost.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		FB3643E823D8FF1F004FE015 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		FB3643EA23D90557004FE015 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		FB3643ED23D907A3004FE015 /* topsample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = topsample.json; sourceTree = "<group>"; };
+		FB3643F023D9173D004FE015 /* ListPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPost.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 			children = (
 				FB3643E423D8FE2C004FE015 /* Post.swift */,
 				FB3643EA23D90557004FE015 /* PostView.swift */,
+				FB3643F023D9173D004FE015 /* ListPost.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				FB3643EB23D90557004FE015 /* PostView.swift in Sources */,
 				FB3643E323D8FD89004FE015 /* PostsTableViewDataSource.swift in Sources */,
 				FB3643B723D8F47C004FE015 /* ViewController.swift in Sources */,
+				FB3643F123D9173D004FE015 /* ListPost.swift in Sources */,
 				FB3643B323D8F47C004FE015 /* AppDelegate.swift in Sources */,
 				FB3643B523D8F47C004FE015 /* SceneDelegate.swift in Sources */,
 				FB3643E523D8FE2C004FE015 /* Post.swift in Sources */,
