@@ -8,26 +8,6 @@
 
 import Foundation
 
-protocol Readable {
-    var isRead: Bool { get set }
-}
-
-protocol Deletable {
-    var isDeleted: Bool {get set}
-}
-
-struct PostView: Readable, Deletable{
-    var post: Post
-    var isRead: Bool
-    var isDeleted: Bool
-    
-    init(post: Post, isRead: Bool) {
-        self.post = post
-        self.isRead = isRead
-        self.isDeleted = false
-    }
-}
-
 struct Post: Hashable {
     let title: String
     let entryDate: Date

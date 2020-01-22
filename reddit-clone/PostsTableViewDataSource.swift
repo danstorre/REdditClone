@@ -12,6 +12,6 @@ enum Section: CaseIterable {
     case main
 }
 
-class PostsTableViewDataSource: UITableViewDiffableDataSource<Section, Post> {
+class PostsTableViewDataSource: UITableViewDiffableDataSource<Section, PostView> {
 
 }
