@@ -8,6 +8,11 @@
 
 import UIKit
 
+
+protocol PostTableViewCellDelegate: AnyObject {
+    func dismissButtonDidPressed(postudid: UUID?)
+}
+
 class PostTableViewCell: UITableViewCell {
     
     @IBOutlet var titlePostLabel: UILabel!
@@ -18,6 +23,10 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet var dismissPostButton: UIButton!
     @IBOutlet var descriptionLabel: UILabel!
     
+    
+    var delegate: PostTableViewCellDelegate?
+    
+    var identifierPost: UUID?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,6 +38,10 @@ class PostTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @IBAction func dismissButtonDidPressed(_ sender: UIButton) {
+        delegate?.dismissButtonDidPressed(postudid: identifierPost)
     }
     
 }
