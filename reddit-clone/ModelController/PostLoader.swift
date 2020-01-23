@@ -9,16 +9,16 @@
 import Foundation
 
 protocol PostLoadable {
-    func loadPosts(closure: @escaping (PostViewList?) -> () )
-    func loadNext(after: String, _ :  @escaping (PostViewList?) -> () )
+    func loadPosts(closure: @escaping (ListPost?) -> () )
+    func loadNext(after: String, _ :  @escaping (ListPost?) -> () )
 }
 
 struct PostFileLoader: PostLoadable {
-    func loadNext(after: String, _: @escaping (PostViewList?) -> ()) {
+    func loadNext(after: String, _: @escaping (ListPost?) -> ()) {
         
     }
     
-    func loadPosts(closure: @escaping (PostViewList?) -> () ) {
+    func loadPosts(closure: @escaping (ListPost?) -> () ) {
         var json = Data()
         if let path = Bundle.main.path(forResource: "topsample", ofType: "json") {
             do {
@@ -32,11 +32,7 @@ struct PostFileLoader: PostLoadable {
             return
         }
         
-        let postViews = listpost.posts.map { (post) -> PostView in
-            return PostView(post: post, isRead: false)
-        }
-        
-        closure(PostViewList(posts: postViews))
+        closure(listpost)
     }
     
     

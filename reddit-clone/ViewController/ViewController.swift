@@ -15,6 +15,7 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
     
     var refreshControl = UIRefreshControl()
     var loader = NetworkPostLoader()
+    var postViewList: PostViewList? = nil
     
     var dataSource: PostsTableViewDataSource? {
         didSet {
@@ -45,18 +46,35 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
     }
     
     func loadData() {
-        loader.loadPosts { [weak self] (postViewList) in
-            
+        loader.loadPosts { [weak self] (postList) in
             DispatchQueue.main.async {
-                if let postViewList = postViewList {
-                    
-                    guard let sSelf = self else{
-                        return
-                    }
-                    sSelf.dataSource =  PostsTableViewDataSource(posts: postViewList)
-                    sSelf.delegate = PostTableViewDelegate(posts: postViewList, delegate: sSelf, navigationDelegate: sSelf)
-                    sSelf.refreshControl.endRefreshing()
+                
+                guard let postList = postList else {
+                    return
                 }
+                
+                let postViews = postList.posts.map { (post) -> PostView in
+                    return PostView(post: post, isRead: false)
+                }
+                
+                guard let sSelf = self else{
+                    return
+                }
+                
+                guard sSelf.postViewList == nil else {
+                    sSelf.tableView.performBatchUpdates({
+                        sSelf.postViewList?.appendNew(posts: postViews)
+                        sSelf.postViewList?.after = postList.after
+                    }, completion: nil)
+                    sSelf.refreshControl.endRefreshing()
+                    return
+                }
+                
+                let newPostViewList = PostViewList(posts: postViews, after: postList.after)
+                sSelf.postViewList = newPostViewList
+                sSelf.dataSource =  PostsTableViewDataSource(posts: newPostViewList)
+                sSelf.delegate = PostTableViewDelegate(posts: newPostViewList, delegate: sSelf, navigationDelegate: sSelf)
+                sSelf.refreshControl.endRefreshing()
             }
         }
     }

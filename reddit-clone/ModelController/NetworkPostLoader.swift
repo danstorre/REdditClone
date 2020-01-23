@@ -16,7 +16,7 @@ class NetworkPostLoader: NSObject, PostLoadable, API {
         self.session = session
     }
     
-    func loadNext(after: String,  _ closure: @escaping (PostViewList?) -> ()) {
+    func loadNext(after: String,  _ closure: @escaping (ListPost?) -> ()) {
         executeDataRequestWithCustomSession(
             session: session,
             request: PostRequestFactory.next(after: after).makeRequest())
@@ -31,7 +31,7 @@ class NetworkPostLoader: NSObject, PostLoadable, API {
     }
     
     
-    func loadPosts(closure: @escaping (PostViewList?) -> () ) {
+    func loadPosts(closure: @escaping (ListPost?) -> () ) {
         
         guard let url = URL(string: "https://www.reddit.com/top.json") else {
             return
@@ -53,17 +53,12 @@ class NetworkPostLoader: NSObject, PostLoadable, API {
         task.resume()
     }
     
-    func parse(data: Data, closure: @escaping (PostViewList?) -> () ) {
+    func parse(data: Data, closure: @escaping (ListPost?) -> () ) {
         let jsondecoder = JSONDecoder()
         guard let listpost = try? jsondecoder.decode(ListPost.self, from: data) else {
             return
         }
-        
-        let postViews = listpost.posts.map { (post) -> PostView in
-            return PostView(post: post, isRead: false)
-        }
-        
-        closure(PostViewList(posts: postViews))
+        closure(listpost)
     }
     
     
