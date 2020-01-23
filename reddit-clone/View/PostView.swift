@@ -27,7 +27,6 @@ class PostView: NSObject, Readable, Deletable{
     var post: Post
     var isRead: Bool
     var isDeleted: Bool
-    let identifier = UUID()
     
     var readableDate: String {
         return post.entryDate.getElapsedInterval()
@@ -47,6 +46,10 @@ class PostView: NSObject, Readable, Deletable{
     
     var minimumDescription: String {
         return post.title.components(separatedBy: ".").first ?? post.title
+    }
+    
+    var largeDescription: String {
+        return post.title
     }
     
     init(post: Post, isRead: Bool) {
