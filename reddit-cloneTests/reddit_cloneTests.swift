@@ -34,6 +34,10 @@ class reddit_cloneTests: XCTestCase {
             return
         }
         XCTAssertEqual(listpost.posts[0].title, "Man trying to return a dog's toy gets tricked into playing fetch")
+        XCTAssertEqual(listpost.posts[0].entryDate.timeIntervalSince1970, 1411946514)
+        XCTAssertEqual(listpost.posts[0].author, "washedupwornout")
+        XCTAssertEqual(listpost.posts[0].comments, 958)
+        XCTAssertEqual(listpost.posts[0].postImageURL, URL(string: "http://b.thumbs.redditmedia.com/9N1f7UGKM5fPZydrsgbb4_SUyyLW7A27um1VOygY3LM.jpg"))
     }
     
 }

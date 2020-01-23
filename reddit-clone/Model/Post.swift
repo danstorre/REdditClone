@@ -12,7 +12,7 @@ struct Post: Hashable {
     let title: String
     let author: String
     let entryDate: Date
-    let postImageURL: URL
+    let postImageURL: URL?
     let comments: Int
     let identifier = UUID()
     
@@ -48,9 +48,13 @@ extension Post: Decodable {
         title = try itemValues.decode(String.self, forKey: .title)
         author = try itemValues.decode(String.self, forKey: .author)
         let entryDate_utc = try itemValues.decode(Double.self, forKey: .entryDate)
-        entryDate = Date(timeIntervalSinceReferenceDate: entryDate_utc)
-        let postImageURLString = try itemValues.decode(String.self, forKey: .thumbnail)
-        postImageURL = URL(fileURLWithPath: postImageURLString)
+        entryDate = Date(timeIntervalSince1970: entryDate_utc)
+        if let postImageURLString = try? itemValues.decode(String.self, forKey: .thumbnail) {
+            postImageURL = URL(string: postImageURLString)
+        } else {
+            postImageURL = nil
+        }
+        
         comments = try itemValues.decode(Int.self, forKey: .num_comments)
     }
 }
