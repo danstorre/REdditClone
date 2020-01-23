@@ -29,7 +29,9 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
         cell.readIconImage.alpha = postViewForCell.isRead ? 0 : 1
         
         retrieveImage(from: postViewForCell.post) { (image) in
-            cell.postImage?.image = image
+            DispatchQueue.main.async {
+                cell.postImage?.image = image
+            }
         }
         return cell
     }
@@ -44,9 +46,7 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
             do {
                 let data = try Data(contentsOf: urlimage)
                 let image = UIImage(data: data)
-                DispatchQueue.main.async {
-                    closure(image)
-                }
+                closure(image)
             } catch {
                 print("can't read image from post \(String(describing: post.identifier.description))")
                 closure(nil)
