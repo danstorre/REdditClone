@@ -12,7 +12,7 @@ class PostTableViewCell: UITableViewCell {
     
     @IBOutlet var titlePostLabel: UILabel!
     @IBOutlet var entryDate: UILabel!
-    @IBOutlet var readIconImage: UIImageView!
+    @IBOutlet var readIcon: UIView!
     @IBOutlet var postImage: UIImageView!
     @IBOutlet var commentsLabel: UILabel!
     @IBOutlet var dismissPostButton: UIButton!
@@ -21,6 +21,7 @@ class PostTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         // Initialization code
     }
 
