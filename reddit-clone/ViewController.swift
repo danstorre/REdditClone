@@ -28,7 +28,7 @@ class ViewController: UIViewController, PostTableViewCellDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.tableFooterView = UIView()
         PostFileLoader().loadPosts { [weak self] (postViewList) in
             if let postViewList = postViewList {
                 
@@ -64,5 +64,21 @@ class ViewController: UIViewController, PostTableViewCellDelegate {
             }
         }, completion: nil)
     }
+    
+    @IBAction func dismissAllButtonPressed(_ sender: UIButton) {
+        tableView.performBatchUpdates({
+            
+            guard let postViews = dataSource?.posts.availablePosts else {
+                return
+            }
+            
+            for postView in postViews {
+                postView.isDeleted = true
+            }
+            tableView.deleteSections(IndexSet(arrayLiteral: 0),
+                                     with: UITableView.RowAnimation.left)
+        }, completion: nil)
+    }
+    
 }
 

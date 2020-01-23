@@ -131,11 +131,27 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jv0-kx-7tE">
+                                <rect key="frame" x="0.0" y="802" width="414" height="60"/>
+                                <color key="backgroundColor" name="black"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Nd8-Xh-lPf"/>
+                                </constraints>
+                                <state key="normal" title="Dismiss All">
+                                    <color key="titleColor" name="yellow"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissAllButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qhg-ax-fh4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="dark-gray"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="H4I-VH-Hw1" secondAttribute="bottom" id="3YK-wb-K1o"/>
+                            <constraint firstItem="jv0-kx-7tE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5he-jn-d8v"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="H4I-VH-Hw1" secondAttribute="trailing" id="63R-ej-Uw0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jv0-kx-7tE" secondAttribute="bottom" id="725-6b-S4b"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jv0-kx-7tE" secondAttribute="trailing" id="7SJ-uP-UwP"/>
                             <constraint firstItem="H4I-VH-Hw1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="DhX-u8-Hgv"/>
                             <constraint firstItem="H4I-VH-Hw1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Q46-39-qLT"/>
                         </constraints>

@@ -16,6 +16,11 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
     init(posts: PostViewList) {
         self.posts = posts
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return posts.availablePosts.count > 0 ? 1 : 0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.availablePosts.count
     }
