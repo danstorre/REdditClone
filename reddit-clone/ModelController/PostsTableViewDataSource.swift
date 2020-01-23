@@ -16,12 +16,17 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
     init(posts: PostViewList) {
         self.posts = posts
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return posts.availablePosts.count > 0 ? 1 : 0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.availablePosts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell") as? PostTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell", for: indexPath) as? PostTableViewCell else {
             fatalError("PostTableViewCell cell not found")
         }
         let postViewForCell = posts.availablePosts[indexPath.row]
@@ -38,6 +43,7 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
         
         cell.readIcon.layer.cornerRadius = 5
         
+        cell.identifierPost = postViewForCell.post.identifier
         cell.dismissPostButton.imageView?.tintColor = UIColor(named: "yellow")
         cell.dismissPostButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0);
         return cell
@@ -71,3 +77,4 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
         }
     }
 }
+

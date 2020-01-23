@@ -183,9 +183,9 @@
 			isa = PBXGroup;
 			children = (
 				FB3643E223D8FD89004FE015 /* PostsTableViewDataSource.swift */,
+				FB8900D023D9490500D3D396 /* PostTableViewDelegate.swift */,
 				FB8900CC23D92EDE00D3D396 /* PostLoader.swift */,
 				FB8900CE23D944F500D3D396 /* ImageCacher.swift */,
-				FB8900D023D9490500D3D396 /* PostTableViewDelegate.swift */,
 			);
 			path = ModelController;
 			sourceTree = "<group>";

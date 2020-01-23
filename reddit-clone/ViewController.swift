@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, PostTableViewCellDelegate {
     
     @IBOutlet var tableView: UITableView!
     
@@ -28,16 +28,57 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        tableView.tableFooterView = UIView()
         PostFileLoader().loadPosts { [weak self] (postViewList) in
             if let postViewList = postViewList {
-                self?.dataSource =  PostsTableViewDataSource(posts: postViewList)
-                self?.delegate = PostTableViewDelegate(posts: postViewList)
+                
+                guard let sSelf = self else{
+                    return
+                }
+                sSelf.dataSource =  PostsTableViewDataSource(posts: postViewList)
+                sSelf.delegate = PostTableViewDelegate(posts: postViewList, delegate: sSelf)
             }
         }
     }
     
+    func dismissButtonDidPressed(postudid: UUID?) {
+        tableView.performBatchUpdates({
+            let postView = dataSource?.posts.availablePosts.filter({ (postView) -> Bool in
+                return postudid == postView.post.identifier
+                }).first
+            
+            postView?.isDeleted = true
+            
+            let theCellToDelete = tableView.visibleCells.filter { (cell) -> Bool in
+                guard let cell = cell as? PostTableViewCell,
+                    let postView = postView,
+                    let idenfierCell = cell.identifierPost,
+                    postView.post.identifier == idenfierCell else {
+                    return false
+                }
+                return true
+            }.first
+            
+            if let theCellToDelete = theCellToDelete, let indexPathOfCell = tableView.indexPath(for: theCellToDelete) {
+                tableView.deleteRows(at: [indexPathOfCell], with: .left)
+            }
+        }, completion: nil)
+    }
+    
+    @IBAction func dismissAllButtonPressed(_ sender: UIButton) {
+        tableView.performBatchUpdates({
+            
+            guard let postViews = dataSource?.posts.availablePosts else {
+                return
+            }
+            
+            for postView in postViews {
+                postView.isDeleted = true
+            }
+            tableView.deleteSections(IndexSet(arrayLiteral: 0),
+                                     with: UITableView.RowAnimation.left)
+        }, completion: nil)
+    }
     
 }
 
