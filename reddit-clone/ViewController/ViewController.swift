@@ -14,6 +14,7 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
     @IBOutlet var tableView: UITableView!
     
     var refreshControl = UIRefreshControl()
+    var loader = NetworkPostLoader()
     
     var dataSource: PostsTableViewDataSource? {
         didSet {
@@ -31,19 +32,7 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
-        PostFileLoader().loadPosts { [weak self] (postViewList) in
-            DispatchQueue.main.async {
-                if let postViewList = postViewList {
-                    
-                    guard let sSelf = self else{
-                        return
-                    }
-                    sSelf.dataSource =  PostsTableViewDataSource(posts: postViewList)
-                    sSelf.delegate = PostTableViewDelegate(posts: postViewList, delegate: sSelf, navigationDelegate: sSelf)
-                    sSelf.refreshControl.endRefreshing()
-                }
-            }
-        }
+        loadData()
         
         let string = "Pull to refresh"
         let mutableAtributesString = NSMutableAttributedString(string: string)
@@ -55,8 +44,8 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
         tableView.addSubview(refreshControl)
     }
     
-    @objc func refresh() {
-        PostFileLoader().loadPosts { [weak self] (postViewList) in
+    func loadData() {
+        loader.loadPosts { [weak self] (postViewList) in
             
             DispatchQueue.main.async {
                 if let postViewList = postViewList {
@@ -69,8 +58,11 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
                     sSelf.refreshControl.endRefreshing()
                 }
             }
-            
         }
+    }
+    
+    @objc func refresh() {
+        loadData()
     }
     
     func dismissButtonDidPressed(postudid: String?) {
