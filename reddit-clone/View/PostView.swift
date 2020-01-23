@@ -6,17 +6,23 @@
 //  Copyright © 2020 dansTeam. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol Readable {
     var isRead: Bool { get set }
 }
 
 protocol Deletable {
-    var isDeleted: Bool {get set}
+    var isDeleted: Bool { get set }
 }
 
-struct PostView: Readable, Deletable, Hashable{
+protocol PostReadableData{
+    var numberOfComments: String { get set }
+    var minimumDescription: String { get set }
+    var urlImage: URL? { get set }
+}
+
+class PostView: NSObject, Readable, Deletable{
     var post: Post
     var isRead: Bool
     var isDeleted: Bool
@@ -30,6 +36,10 @@ struct PostView: Readable, Deletable, Hashable{
         return "\(post.comments) comments"
     }
     
+    var urlImage: URL? {
+        return post.postImageURL
+    }
+    
     var minimumDescription: String {
         return post.title.components(separatedBy: ".").first ?? post.title
     }
@@ -38,14 +48,7 @@ struct PostView: Readable, Deletable, Hashable{
         self.post = post
         self.isRead = isRead
         self.isDeleted = false
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(identifier)
-    }
-    
-    static func ==(lhs: PostView, rhs: PostView) -> Bool {
-        return lhs.post == rhs.post
+        super.init()
     }
 }
 
