@@ -10,16 +10,16 @@ import Foundation
 
 struct Post: Hashable {
     let title: String
+    let author: String
     let entryDate: Date
     let postImageURL: URL
     let comments: Int
-    let description: String
     let identifier = UUID()
-
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(identifier)
     }
-
+    
     static func ==(lhs: Post, rhs: Post) -> Bool {
         return lhs.identifier == rhs.identifier
     }
@@ -32,22 +32,25 @@ extension Post: Decodable {
         case data
     }
     
-     enum ItemPostCodingKeys: String, CodingKey {
-           case title
-           case author
-           case thumbnail
-           case entryDate = "created_utc"
-           case num_comments
+    enum ItemPostCodingKeys: String, CodingKey {
+        case title
+        case author
+        case thumbnail
+        case entryDate = "created_utc"
+        case num_comments
+        case description
     }
     
     init(from decoder: Decoder) throws {
-           let values = try decoder.container(keyedBy: PostCodingKeys.self)
-           let itemValues = try values.nestedContainer(keyedBy: ItemPostCodingKeys.self, forKey: .data)
+        let values = try decoder.container(keyedBy: PostCodingKeys.self)
+        let itemValues = try values.nestedContainer(keyedBy: ItemPostCodingKeys.self, forKey: .data)
         
-           title = try itemValues.decode(String.self, forKey: .title)
-           entryDate = try itemValues.decode(Date.self, forKey: .title)
-           postImageURL = try itemValues.decode(URL.self, forKey: .title)
-           comments = try itemValues.decode(Int.self, forKey: .title)
-           description = try itemValues.decode(String.self, forKey: .title)
+        title = try itemValues.decode(String.self, forKey: .title)
+        author = try itemValues.decode(String.self, forKey: .author)
+        let entryDate_utc = try itemValues.decode(Double.self, forKey: .entryDate)
+        entryDate = Date(timeIntervalSinceReferenceDate: entryDate_utc)
+        let postImageURLString = try itemValues.decode(String.self, forKey: .thumbnail)
+        postImageURL = URL(fileURLWithPath: postImageURLString)
+        comments = try itemValues.decode(Int.self, forKey: .num_comments)
     }
 }
