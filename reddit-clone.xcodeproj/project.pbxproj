@@ -26,6 +26,7 @@
 		FB8900CF23D944F500D3D396 /* ImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8900CE23D944F500D3D396 /* ImageCacher.swift */; };
 		FB8900D123D9490500D3D396 /* PostTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8900D023D9490500D3D396 /* PostTableViewDelegate.swift */; };
 		FB92E0B123DA1A15007305EB /* DetailPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB92E0B023DA1A15007305EB /* DetailPostViewController.swift */; };
+		FBB2BD3C23DA2616007CB164 /* ViewerCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB2BD3B23DA2616007CB164 /* ViewerCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		FB8900CE23D944F500D3D396 /* ImageCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacher.swift; sourceTree = "<group>"; };
 		FB8900D023D9490500D3D396 /* PostTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewDelegate.swift; sourceTree = "<group>"; };
 		FB92E0B023DA1A15007305EB /* DetailPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPostViewController.swift; sourceTree = "<group>"; };
+		FBB2BD3B23DA2616007CB164 /* ViewerCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 				FB8900D023D9490500D3D396 /* PostTableViewDelegate.swift */,
 				FB8900CC23D92EDE00D3D396 /* PostLoader.swift */,
 				FB8900CE23D944F500D3D396 /* ImageCacher.swift */,
+				FBB2BD3B23DA2616007CB164 /* ViewerCache.swift */,
 			);
 			path = ModelController;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				FB3643EB23D90557004FE015 /* PostView.swift in Sources */,
 				FB8900D123D9490500D3D396 /* PostTableViewDelegate.swift in Sources */,
 				FB3643E323D8FD89004FE015 /* PostsTableViewDataSource.swift in Sources */,
+				FBB2BD3C23DA2616007CB164 /* ViewerCache.swift in Sources */,
 				FB3643B723D8F47C004FE015 /* ViewController.swift in Sources */,
 				FB8900CD23D92EDE00D3D396 /* PostLoader.swift in Sources */,
 				FB3643F123D9173D004FE015 /* ListPost.swift in Sources */,

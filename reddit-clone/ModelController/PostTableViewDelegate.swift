@@ -14,6 +14,8 @@ protocol NavigationPostDetail: AnyObject {
 
 class PostTableViewDelegate: NSObject, UITableViewDelegate, PostTableViewCellDelegate {
     var posts: PostViewList?
+    let imageCacher: ImageCacher = ImageCacher()
+    let viewerCacher: ViewerCache = ViewerCache()
     weak var delegate: PostTableViewCellDelegate?
     weak var navigationDelegate: NavigationPostDetail?
     
@@ -22,10 +24,20 @@ class PostTableViewDelegate: NSObject, UITableViewDelegate, PostTableViewCellDel
         self.delegate = delegate
         self.navigationDelegate = navigationDelegate
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let postView = posts?.availablePosts[indexPath.row]
-        postView?.isRead = true
+        guard let postView = posts?.availablePosts[indexPath.row] else {
+            return
+        }
+        
+        postView.isRead = true
+        
+        do {
+            try viewerCacher.setObject(postCache: PostViewItemCache(uuid: postView.post.identifier, read: true))
+        }catch {
+            print("could not cache post viewed with identifier: \(postView.post.identifier)")
+        }
         
         tableView.performBatchUpdates({
             if let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell {
@@ -44,9 +56,10 @@ class PostTableViewDelegate: NSObject, UITableViewDelegate, PostTableViewCellDel
         }
         
         cell.delegate = self
+        cell.readIcon.layer.cornerRadius = 5
     }
     
-    func dismissButtonDidPressed(postudid: UUID?){
+    func dismissButtonDidPressed(postudid: String?){
         delegate?.dismissButtonDidPressed(postudid: postudid)
     }
 }

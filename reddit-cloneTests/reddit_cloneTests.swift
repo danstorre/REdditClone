@@ -38,6 +38,7 @@ class reddit_cloneTests: XCTestCase {
         XCTAssertEqual(listpost.posts[0].author, "washedupwornout")
         XCTAssertEqual(listpost.posts[0].comments, 958)
         XCTAssertEqual(listpost.posts[0].postImageURL, URL(string: "http://b.thumbs.redditmedia.com/9N1f7UGKM5fPZydrsgbb4_SUyyLW7A27um1VOygY3LM.jpg"))
+        XCTAssertEqual(listpost.posts[0].identifier, "t5_2qh33")
     }
     
 }

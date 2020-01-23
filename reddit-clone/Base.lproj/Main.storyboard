@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="H4I-VH-Hw1">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="714"/>
                                 <color key="backgroundColor" name="black"/>
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -147,12 +147,12 @@
                         </subviews>
                         <color key="backgroundColor" name="dark-gray"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="H4I-VH-Hw1" secondAttribute="bottom" id="3YK-wb-K1o"/>
                             <constraint firstItem="jv0-kx-7tE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5he-jn-d8v"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="H4I-VH-Hw1" secondAttribute="trailing" id="63R-ej-Uw0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jv0-kx-7tE" secondAttribute="bottom" id="725-6b-S4b"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jv0-kx-7tE" secondAttribute="trailing" id="7SJ-uP-UwP"/>
                             <constraint firstItem="H4I-VH-Hw1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="DhX-u8-Hgv"/>
+                            <constraint firstItem="jv0-kx-7tE" firstAttribute="top" secondItem="H4I-VH-Hw1" secondAttribute="bottom" id="KMS-k0-dkd"/>
                             <constraint firstItem="H4I-VH-Hw1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Q46-39-qLT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -256,6 +256,9 @@
         </namedColor>
         <namedColor name="gray">
             <color red="0.875" green="0.875" blue="0.875" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="white">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="white">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

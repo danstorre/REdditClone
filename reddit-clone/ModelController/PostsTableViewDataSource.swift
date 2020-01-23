@@ -12,6 +12,7 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
     
     var posts: PostViewList
     let imageCacher: ImageCacher = ImageCacher()
+    let viewerCacher: ViewerCache = ViewerCache()
     
     init(posts: PostViewList) {
         self.posts = posts
@@ -33,6 +34,12 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
         cell.commentsLabel?.text = postViewForCell.numberOfComments
         cell.descriptionLabel?.text = postViewForCell.minimumDescription
         cell.entryDate?.text = postViewForCell.readableDate
+        
+        viewerCacher.retrieveObject(key: postViewForCell.post.identifier) { [weak cell] (postItemcache) in
+            DispatchQueue.main.async {
+                cell?.readIcon.alpha = (postItemcache?.read ?? false) ? 0 : 1
+            }
+        }
         cell.readIcon.alpha = postViewForCell.isRead ? 0 : 1
         cell.titlePostLabel?.text = postViewForCell.author
         retrieveImage(from: postViewForCell.post) { (image) in
@@ -40,12 +47,9 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
                 cell.postImage?.image = image
             }
         }
-        
-        cell.readIcon.layer.cornerRadius = 5
-        
         cell.identifierPost = postViewForCell.post.identifier
         cell.dismissPostButton.imageView?.tintColor = UIColor(named: "yellow")
-        cell.dismissPostButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0);
+        cell.dismissPostButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         return cell
     }
     

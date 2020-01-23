@@ -13,6 +13,8 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
     
     @IBOutlet var tableView: UITableView!
     
+    var refreshControl = UIRefreshControl()
+    
     var dataSource: PostsTableViewDataSource? {
         didSet {
             tableView.dataSource = dataSource
@@ -30,22 +32,52 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
         PostFileLoader().loadPosts { [weak self] (postViewList) in
-            if let postViewList = postViewList {
-                
-                guard let sSelf = self else{
-                    return
+            DispatchQueue.main.async {
+                if let postViewList = postViewList {
+                    
+                    guard let sSelf = self else{
+                        return
+                    }
+                    sSelf.dataSource =  PostsTableViewDataSource(posts: postViewList)
+                    sSelf.delegate = PostTableViewDelegate(posts: postViewList, delegate: sSelf, navigationDelegate: sSelf)
+                    sSelf.refreshControl.endRefreshing()
                 }
-                sSelf.dataSource =  PostsTableViewDataSource(posts: postViewList)
-                sSelf.delegate = PostTableViewDelegate(posts: postViewList, delegate: sSelf, navigationDelegate: sSelf)
             }
+        }
+        
+        let string = "Pull to refresh"
+        let mutableAtributesString = NSMutableAttributedString(string: string)
+        mutableAtributesString.addAttributes([NSAttributedString.Key.foregroundColor : UIColor(named: "white")!],
+                                             range: NSRange(location: 0, length: string.count))
+        
+        refreshControl.attributedTitle = mutableAtributesString
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshControl)
+    }
+    
+    @objc func refresh() {
+        PostFileLoader().loadPosts { [weak self] (postViewList) in
+            
+            DispatchQueue.main.async {
+                if let postViewList = postViewList {
+                    
+                    guard let sSelf = self else{
+                        return
+                    }
+                    sSelf.dataSource =  PostsTableViewDataSource(posts: postViewList)
+                    sSelf.delegate = PostTableViewDelegate(posts: postViewList, delegate: sSelf, navigationDelegate: sSelf)
+                    sSelf.refreshControl.endRefreshing()
+                }
+            }
+            
         }
     }
     
-    func dismissButtonDidPressed(postudid: UUID?) {
+    func dismissButtonDidPressed(postudid: String?) {
         tableView.performBatchUpdates({
             let postView = dataSource?.posts.availablePosts.filter({ (postView) -> Bool in
                 return postudid == postView.post.identifier
-                }).first
+            }).first
             
             postView?.isDeleted = true
             
@@ -54,7 +86,7 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
                     let postView = postView,
                     let idenfierCell = cell.identifierPost,
                     postView.post.identifier == idenfierCell else {
-                    return false
+                        return false
                 }
                 return true
             }.first

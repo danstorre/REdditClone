@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol PostTableViewCellDelegate: AnyObject {
-    func dismissButtonDidPressed(postudid: UUID?)
+    func dismissButtonDidPressed(postudid: String?)
 }
 
 class PostTableViewCell: UITableViewCell {
@@ -26,7 +26,7 @@ class PostTableViewCell: UITableViewCell {
     
     var delegate: PostTableViewCellDelegate?
     
-    var identifierPost: UUID?
+    var identifierPost: String?
 
     override func awakeFromNib() {
         super.awakeFromNib()

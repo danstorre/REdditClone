@@ -27,7 +27,6 @@ class PostView: NSObject, Readable, Deletable{
     var post: Post
     var isRead: Bool
     var isDeleted: Bool
-    let identifier = UUID()
     
     var readableDate: String {
         return post.entryDate.getElapsedInterval()

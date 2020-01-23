@@ -14,7 +14,7 @@ struct Post: Hashable {
     let entryDate: Date
     let postImageURL: URL?
     let comments: Int
-    let identifier = UUID()
+    let identifier: String
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(identifier)
@@ -39,6 +39,7 @@ extension Post: Decodable {
         case entryDate = "created_utc"
         case num_comments
         case description
+        case subreddit_id
     }
     
     init(from decoder: Decoder) throws {
@@ -56,5 +57,6 @@ extension Post: Decodable {
         }
         
         comments = try itemValues.decode(Int.self, forKey: .num_comments)
+        identifier = try itemValues.decode(String.self, forKey: .subreddit_id)
     }
 }
