@@ -49,6 +49,10 @@ class PostView: NSObject, Readable, Deletable{
         return post.title.components(separatedBy: ".").first ?? post.title
     }
     
+    var largeDescription: String {
+        return post.title
+    }
+    
     init(post: Post, isRead: Bool) {
         self.post = post
         self.isRead = isRead

@@ -8,24 +8,33 @@
 
 import UIKit
 
+protocol NavigationPostDetail: AnyObject {
+    func userDidSelectOn(postView: PostView?)
+}
+
 class PostTableViewDelegate: NSObject, UITableViewDelegate, PostTableViewCellDelegate {
     var posts: PostViewList?
     weak var delegate: PostTableViewCellDelegate?
+    weak var navigationDelegate: NavigationPostDetail?
     
-    init(posts: PostViewList, delegate: PostTableViewCellDelegate) {
+    init(posts: PostViewList, delegate: PostTableViewCellDelegate, navigationDelegate: NavigationPostDetail) {
         self.posts = posts
         self.delegate = delegate
+        self.navigationDelegate = navigationDelegate
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        posts?.availablePosts[indexPath.row].isRead = true
+        tableView.deselectRow(at: indexPath, animated: true)
+        let postView = posts?.availablePosts[indexPath.row]
+        postView?.isRead = true
         
         tableView.performBatchUpdates({
             if let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell {
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: 0.3) { [weak self] in
                     cell.readIcon.isHidden = true
+                    self?.navigationDelegate?.userDidSelectOn(postView: postView)
                 }
             }
-        }) { (_) in
+        }) { (completed) in
         }
     }
     

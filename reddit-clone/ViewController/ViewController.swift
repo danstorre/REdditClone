@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ViewController: UIViewController, PostTableViewCellDelegate {
+class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPostDetail{
     
     @IBOutlet var tableView: UITableView!
     
@@ -36,7 +36,7 @@ class ViewController: UIViewController, PostTableViewCellDelegate {
                     return
                 }
                 sSelf.dataSource =  PostsTableViewDataSource(posts: postViewList)
-                sSelf.delegate = PostTableViewDelegate(posts: postViewList, delegate: sSelf)
+                sSelf.delegate = PostTableViewDelegate(posts: postViewList, delegate: sSelf, navigationDelegate: sSelf)
             }
         }
     }
@@ -67,7 +67,6 @@ class ViewController: UIViewController, PostTableViewCellDelegate {
     
     @IBAction func dismissAllButtonPressed(_ sender: UIButton) {
         tableView.performBatchUpdates({
-            
             guard let postViews = dataSource?.posts.availablePosts else {
                 return
             }
@@ -80,5 +79,15 @@ class ViewController: UIViewController, PostTableViewCellDelegate {
         }, completion: nil)
     }
     
+    func userDidSelectOn(postView: PostView?) {
+        guard let postView = postView else {
+            return
+        }
+        
+        if let vc = storyboard?.instantiateViewController(identifier: "DetailPostViewController") as? DetailPostViewController {
+            vc.postView = postView
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }
 

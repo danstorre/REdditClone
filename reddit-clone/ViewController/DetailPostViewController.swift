@@ -13,22 +13,35 @@ class DetailPostViewController: UIViewController {
     @IBOutlet var titlePostLabel: UILabel!
     @IBOutlet var postImageButton: UIButton!
     @IBOutlet var descriptionPostLabel: UILabel!
-
+    
+    var postView: PostView?
+    
+    private var imageCacher = ImageCacher()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
+        guard let postView = postView else {
+            return
+        }
+        
+        titlePostLabel.text = postView.author
+        if let urlImage = postView.urlImage {
+            imageCacher.retrieveObject(key: urlImage) { [weak self] (image) in
+                guard let image = image else{
+                    return
+                }
+                DispatchQueue.main.async {
+                    self?.postImageButton.setBackgroundImage(image, for: UIControl.State.normal)
+                }
+            }
+        }
+        descriptionPostLabel.text = postView.largeDescription
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func picturePostButtonPressed(_ sender: Any) {
+        
+        //save image in photos
     }
-    */
-
+    
 }
