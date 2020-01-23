@@ -29,6 +29,7 @@
 		FBB2BD3C23DA2616007CB164 /* ViewerCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB2BD3B23DA2616007CB164 /* ViewerCache.swift */; };
 		FBB2BD3E23DA39C1007CB164 /* NetworkPostLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB2BD3D23DA39C1007CB164 /* NetworkPostLoader.swift */; };
 		FBB2BD4023DA498C007CB164 /* PostRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB2BD3F23DA498C007CB164 /* PostRequestFactory.swift */; };
+		FBB2BD4223DA4C4B007CB164 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB2BD4123DA4C4B007CB164 /* API.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		FBB2BD3B23DA2616007CB164 /* ViewerCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerCache.swift; sourceTree = "<group>"; };
 		FBB2BD3D23DA39C1007CB164 /* NetworkPostLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPostLoader.swift; sourceTree = "<group>"; };
 		FBB2BD3F23DA498C007CB164 /* PostRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequestFactory.swift; sourceTree = "<group>"; };
+		FBB2BD4123DA4C4B007CB164 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +199,7 @@
 				FBB2BD3B23DA2616007CB164 /* ViewerCache.swift */,
 				FBB2BD3D23DA39C1007CB164 /* NetworkPostLoader.swift */,
 				FBB2BD3F23DA498C007CB164 /* PostRequestFactory.swift */,
+				FBB2BD4123DA4C4B007CB164 /* API.swift */,
 			);
 			path = ModelController;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				FB3643E523D8FE2C004FE015 /* Post.swift in Sources */,
 				FB8900CF23D944F500D3D396 /* ImageCacher.swift in Sources */,
 				FB92E0B123DA1A15007305EB /* DetailPostViewController.swift in Sources */,
+				FBB2BD4223DA4C4B007CB164 /* API.swift in Sources */,
 				FB3643E923D8FF1F004FE015 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

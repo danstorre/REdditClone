@@ -10,9 +10,13 @@ import Foundation
 
 protocol PostLoadable {
     func loadPosts(closure: @escaping (PostViewList?) -> () )
+    func loadNext(after: String, _ :  @escaping (PostViewList?) -> () )
 }
 
 struct PostFileLoader: PostLoadable {
+    func loadNext(after: String, _: @escaping (PostViewList?) -> ()) {
+        
+    }
     
     func loadPosts(closure: @escaping (PostViewList?) -> () ) {
         var json = Data()
