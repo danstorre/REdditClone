@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PostViewList {
+class PostViewList {
     private var posts: [PostView]
     var availablePosts: [PostView] {
         return posts.filter({return !$0.isDeleted})

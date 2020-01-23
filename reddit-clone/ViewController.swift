@@ -20,11 +20,20 @@ class ViewController: UIViewController {
         }
     }
     
+    var delegate: PostTableViewDelegate? {
+        didSet {
+            tableView.delegate = delegate
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         PostFileLoader().loadPosts { [weak self] (postViewList) in
             if let postViewList = postViewList {
                 self?.dataSource =  PostsTableViewDataSource(posts: postViewList)
+                self?.delegate = PostTableViewDelegate(posts: postViewList)
             }
         }
     }

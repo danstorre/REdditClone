@@ -24,6 +24,7 @@
 		FB8900CB23D927B600D3D396 /* PostViewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8900CA23D927B600D3D396 /* PostViewList.swift */; };
 		FB8900CD23D92EDE00D3D396 /* PostLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8900CC23D92EDE00D3D396 /* PostLoader.swift */; };
 		FB8900CF23D944F500D3D396 /* ImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8900CE23D944F500D3D396 /* ImageCacher.swift */; };
+		FB8900D123D9490500D3D396 /* PostTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8900D023D9490500D3D396 /* PostTableViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		FB8900CA23D927B600D3D396 /* PostViewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewList.swift; sourceTree = "<group>"; };
 		FB8900CC23D92EDE00D3D396 /* PostLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoader.swift; sourceTree = "<group>"; };
 		FB8900CE23D944F500D3D396 /* ImageCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacher.swift; sourceTree = "<group>"; };
+		FB8900D023D9490500D3D396 /* PostTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +185,7 @@
 				FB3643E223D8FD89004FE015 /* PostsTableViewDataSource.swift */,
 				FB8900CC23D92EDE00D3D396 /* PostLoader.swift */,
 				FB8900CE23D944F500D3D396 /* ImageCacher.swift */,
+				FB8900D023D9490500D3D396 /* PostTableViewDelegate.swift */,
 			);
 			path = ModelController;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 			files = (
 				FB8900CB23D927B600D3D396 /* PostViewList.swift in Sources */,
 				FB3643EB23D90557004FE015 /* PostView.swift in Sources */,
+				FB8900D123D9490500D3D396 /* PostTableViewDelegate.swift in Sources */,
 				FB3643E323D8FD89004FE015 /* PostsTableViewDataSource.swift in Sources */,
 				FB3643B723D8F47C004FE015 /* ViewController.swift in Sources */,
 				FB8900CD23D92EDE00D3D396 /* PostLoader.swift in Sources */,
