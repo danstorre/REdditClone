@@ -25,6 +25,7 @@
 		FB8900CD23D92EDE00D3D396 /* PostLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8900CC23D92EDE00D3D396 /* PostLoader.swift */; };
 		FB8900CF23D944F500D3D396 /* ImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8900CE23D944F500D3D396 /* ImageCacher.swift */; };
 		FB8900D123D9490500D3D396 /* PostTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8900D023D9490500D3D396 /* PostTableViewDelegate.swift */; };
+		FB92E0B123DA1A15007305EB /* DetailPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB92E0B023DA1A15007305EB /* DetailPostViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		FB8900CC23D92EDE00D3D396 /* PostLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoader.swift; sourceTree = "<group>"; };
 		FB8900CE23D944F500D3D396 /* ImageCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacher.swift; sourceTree = "<group>"; };
 		FB8900D023D9490500D3D396 /* PostTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewDelegate.swift; sourceTree = "<group>"; };
+		FB92E0B023DA1A15007305EB /* DetailPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPostViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,13 +121,13 @@
 		FB3643B123D8F47C004FE015 /* reddit-clone */ = {
 			isa = PBXGroup;
 			children = (
+				FB92E0AF23DA19D4007305EB /* ViewController */,
 				FB3643EF23D908BF004FE015 /* ModelController */,
 				FB3643EC23D90782004FE015 /* Resources */,
 				FB3643E723D8FEFF004FE015 /* View */,
 				FB3643E623D8FE2F004FE015 /* Model */,
 				FB3643B223D8F47C004FE015 /* AppDelegate.swift */,
 				FB3643B423D8F47C004FE015 /* SceneDelegate.swift */,
-				FB3643B623D8F47C004FE015 /* ViewController.swift */,
 				FB3643B823D8F47C004FE015 /* Main.storyboard */,
 				FB3643BB23D8F483004FE015 /* Assets.xcassets */,
 				FB3643BD23D8F483004FE015 /* LaunchScreen.storyboard */,
@@ -188,6 +190,15 @@
 				FB8900CE23D944F500D3D396 /* ImageCacher.swift */,
 			);
 			path = ModelController;
+			sourceTree = "<group>";
+		};
+		FB92E0AF23DA19D4007305EB /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FB3643B623D8F47C004FE015 /* ViewController.swift */,
+				FB92E0B023DA1A15007305EB /* DetailPostViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,6 +344,7 @@
 				FB3643B523D8F47C004FE015 /* SceneDelegate.swift in Sources */,
 				FB3643E523D8FE2C004FE015 /* Post.swift in Sources */,
 				FB8900CF23D944F500D3D396 /* ImageCacher.swift in Sources */,
+				FB92E0B123DA1A15007305EB /* DetailPostViewController.swift in Sources */,
 				FB3643E923D8FF1F004FE015 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
