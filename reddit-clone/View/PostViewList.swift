@@ -13,4 +13,8 @@ struct PostViewList {
     var availablePosts: [PostView] {
         return posts.filter({return !$0.isDeleted})
     }
+    
+    init(posts: [PostView]) {
+        self.posts = posts
+    }
 }
