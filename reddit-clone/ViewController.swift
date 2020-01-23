@@ -9,14 +9,26 @@
 import UIKit
 
 
-
 class ViewController: UIViewController {
-
+    
+    @IBOutlet var tableView: UITableView!
+    
+    var dataSource: PostsTableViewDataSource? {
+        didSet {
+            tableView.dataSource = dataSource
+            tableView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        PostFileLoader().loadPosts { [weak self] (postViewList) in
+            if let postViewList = postViewList {
+                self?.dataSource =  PostsTableViewDataSource(posts: postViewList)
+            }
+        }
     }
-
-
+    
+    
 }
 
