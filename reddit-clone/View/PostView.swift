@@ -19,6 +19,7 @@ protocol Deletable {
 protocol PostReadableData{
     var numberOfComments: String { get set }
     var minimumDescription: String { get set }
+    var author: String { get set }
     var urlImage: URL? { get set }
 }
 
@@ -30,6 +31,10 @@ class PostView: NSObject, Readable, Deletable{
     
     var readableDate: String {
         return post.entryDate.getElapsedInterval()
+    }
+
+    var author: String {
+        return post.author
     }
     
     var numberOfComments: String {

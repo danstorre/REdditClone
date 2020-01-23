@@ -27,6 +27,7 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
         cell.descriptionLabel?.text = postViewForCell.minimumDescription
         cell.entryDate?.text = postViewForCell.readableDate
         cell.readIconImage.alpha = postViewForCell.isRead ? 0 : 1
+        cell.titlePostLabel?.text = postViewForCell.author
         
         retrieveImage(from: postViewForCell.post) { (image) in
             DispatchQueue.main.async {
