@@ -30,9 +30,6 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
         cell.entryDate?.text = postViewForCell.readableDate
         cell.readIcon.alpha = postViewForCell.isRead ? 0 : 1
         cell.titlePostLabel?.text = postViewForCell.author
-        
-        
-        
         retrieveImage(from: postViewForCell.post) { (image) in
             DispatchQueue.main.async {
                 cell.postImage?.image = image
@@ -43,7 +40,6 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
         
         cell.dismissPostButton.imageView?.tintColor = UIColor(named: "yellow")
         cell.dismissPostButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0);
-//        cell.dismissPostButton.titleLabel?.numberOfLines = 0
         return cell
     }
     
