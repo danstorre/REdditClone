@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class DetailPostViewController: UIViewController {
     
@@ -39,9 +40,20 @@ class DetailPostViewController: UIViewController {
         descriptionPostLabel.text = postView.largeDescription
     }
     
-    @IBAction func picturePostButtonPressed(_ sender: Any) {
+    @IBAction func picturePostButtonPressed(_ sender: UIButton) {
         
-        //save image in photos
+        guard let photo = sender.currentBackgroundImage, let data = photo.jpegData(compressionQuality: 0) else {
+            return
+        }
+        
+        PHPhotoLibrary.requestAuthorization { status in
+            guard status == .authorized else { return }
+            
+            PHPhotoLibrary.shared().performChanges({
+                let creationRequest = PHAssetCreationRequest.forAsset()
+                creationRequest.addResource(with: .photo, data: data, options: nil)
+            }, completionHandler: nil)
+        }
     }
     
 }
