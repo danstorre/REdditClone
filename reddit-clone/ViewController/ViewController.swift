@@ -33,8 +33,8 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
-        loadData()
         
+        loadData()
         let string = "Pull to refresh"
         let mutableAtributesString = NSMutableAttributedString(string: string)
         mutableAtributesString.addAttributes([NSAttributedString.Key.foregroundColor : UIColor(named: "white")!],
@@ -43,39 +43,17 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
         refreshControl.attributedTitle = mutableAtributesString
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         tableView.addSubview(refreshControl)
+        tableView.isPagingEnabled = true
     }
     
     func loadData() {
+        isLoadingList = true
         loader.loadPosts { [weak self] (postList) in
-            DispatchQueue.main.async {
-                
-                guard let postList = postList else {
-                    return
-                }
-                
-                let postViews = postList.posts.map { (post) -> PostView in
-                    return PostView(post: post, isRead: false)
-                }
-                
-                guard let sSelf = self else{
-                    return
-                }
-                
-                guard sSelf.postViewList == nil else {
-                    sSelf.tableView.performBatchUpdates({
-                        sSelf.postViewList?.appendNew(posts: postViews)
-                        sSelf.postViewList?.after = postList.after
-                    }, completion: nil)
-                    sSelf.refreshControl.endRefreshing()
-                    return
-                }
-                
-                let newPostViewList = PostViewList(posts: postViews, after: postList.after)
-                sSelf.postViewList = newPostViewList
-                sSelf.dataSource =  PostsTableViewDataSource(posts: newPostViewList)
-                sSelf.delegate = PostTableViewDelegate(posts: newPostViewList, delegate: sSelf, navigationDelegate: sSelf)
-                sSelf.refreshControl.endRefreshing()
+            guard let sSelf = self else{
+                return
             }
+            sSelf.updateSources(postList: postList)
+            sSelf.isLoadingList = false
         }
     }
     
@@ -129,6 +107,53 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
         if let vc = storyboard?.instantiateViewController(identifier: "DetailPostViewController") as? DetailPostViewController {
             vc.postView = postView
             navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    var isLoadingList: Bool = false
+    
+    func updateSources(postList: ListPost?) {
+        DispatchQueue.main.async {
+            
+            guard let postList = postList else {
+                return
+            }
+            
+            let postViews = postList.posts.map { (post) -> PostView in
+                return PostView(post: post, isRead: false)
+            }
+            
+            guard self.postViewList == nil else {
+                self.postViewList?.appendNew(posts: postViews)
+                self.postViewList?.after = postList.after
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
+                self.isLoadingList = false
+                return
+            }
+            self.refreshControl.endRefreshing()
+            let newPostViewList = PostViewList(posts: postViews, after: postList.after)
+            self.postViewList = newPostViewList
+            self.dataSource =  PostsTableViewDataSource(posts: newPostViewList)
+            self.delegate = PostTableViewDelegate(posts: newPostViewList, delegate: self, navigationDelegate: self)
+        }
+    }
+    
+    func didGotAtTheEnd() {
+        
+        guard !isLoadingList else {
+            return
+        }
+        
+        isLoadingList = true
+        if let postViewList = postViewList, let after = postViewList.after {
+            loader.loadNext(after: after) { [weak self] (postList) in
+                guard let sSelf = self else{
+                    return
+                }
+                sSelf.updateSources(postList: postList)
+                sSelf.isLoadingList = false
+            }
         }
     }
 }

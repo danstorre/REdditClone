@@ -10,6 +10,7 @@ import UIKit
 
 protocol NavigationPostDetail: AnyObject {
     func userDidSelectOn(postView: PostView?)
+    func didGotAtTheEnd()
 }
 
 class PostTableViewDelegate: NSObject, UITableViewDelegate, PostTableViewCellDelegate {
@@ -57,6 +58,10 @@ class PostTableViewDelegate: NSObject, UITableViewDelegate, PostTableViewCellDel
         
         cell.delegate = self
         cell.readIcon.layer.cornerRadius = 5
+        
+        if let count = posts?.availablePosts.count, indexPath.row == (count - 1) {
+            navigationDelegate?.didGotAtTheEnd()
+        }
     }
     
     func dismissButtonDidPressed(postudid: String?){
