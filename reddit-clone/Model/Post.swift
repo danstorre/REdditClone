@@ -40,6 +40,7 @@ extension Post: Decodable {
         case num_comments
         case description
         case subreddit_id
+        case id
     }
     
     init(from decoder: Decoder) throws {
@@ -57,6 +58,6 @@ extension Post: Decodable {
         }
         
         comments = try itemValues.decode(Int.self, forKey: .num_comments)
-        identifier = try itemValues.decode(String.self, forKey: .subreddit_id)
+        identifier = try itemValues.decode(String.self, forKey: .id) + title
     }
 }

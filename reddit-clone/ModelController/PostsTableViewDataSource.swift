@@ -30,6 +30,7 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
             fatalError("PostTableViewCell cell not found")
         }
         let postViewForCell = posts.availablePosts[indexPath.row]
+        cell.showIcon = !postViewForCell.isRead
         cell.commentsLabel?.text = postViewForCell.numberOfComments
         cell.descriptionLabel?.text = postViewForCell.minimumDescription
         cell.entryDate?.text = postViewForCell.readableDate
@@ -43,7 +44,7 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
         cell.identifierPost = postViewForCell.post.identifier
         cell.dismissPostButton.imageView?.tintColor = UIColor(named: "yellow")
         cell.dismissPostButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
-        cell.showIcon = true
+        
         
         return cell
     }

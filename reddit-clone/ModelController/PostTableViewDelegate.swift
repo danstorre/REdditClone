@@ -45,13 +45,12 @@ class PostTableViewDelegate: NSObject, UITableViewDelegate, PostTableViewCellDel
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let cell = cell as? PostTableViewCell, let postViewForCell = posts?.availablePosts[indexPath.row] else {
+        guard let cell = cell as? PostTableViewCell else {
             fatalError("PostTableViewCell cell not found")
         }
         
         cell.delegate = self
         cell.readIcon.layer.cornerRadius = 5
-        cell.showIcon = !postViewForCell.isRead
         if let count = posts?.availablePosts.count, indexPath.row == (count - 1) {
             navigationDelegate?.didGotAtTheEnd()
         }
