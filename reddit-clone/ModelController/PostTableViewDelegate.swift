@@ -16,7 +16,6 @@ protocol NavigationPostDetail: AnyObject {
 class PostTableViewDelegate: NSObject, UITableViewDelegate, PostTableViewCellDelegate {
     var posts: PostViewList?
     let imageCacher: ImageCacher = ImageCacher()
-    let viewerCacher: ViewerCache = ViewerCache()
     weak var delegate: PostTableViewCellDelegate?
     weak var navigationDelegate: NavigationPostDetail?
     
@@ -35,10 +34,10 @@ class PostTableViewDelegate: NSObject, UITableViewDelegate, PostTableViewCellDel
         postView.isRead = true
         
         if let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell {
-            do {
-                try viewerCacher.setObject(postCache: PostViewItemCache(uuid: postView.post.identifier, read: true))
-            }catch {
-                print("could not cache post viewed with identifier: \(postView.post.identifier)")
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                var set = Set(appDelegate.postCacheArray)
+                set.insert(PostViewItemCache(uuid: postView.post.identifier, read: true))
+                appDelegate.postCacheArray = Array(set)
             }
             cell.showIcon = false
             navigationDelegate?.userDidSelectOn(postView: postView)
@@ -52,7 +51,6 @@ class PostTableViewDelegate: NSObject, UITableViewDelegate, PostTableViewCellDel
         
         cell.delegate = self
         cell.readIcon.layer.cornerRadius = 5
-        
         if let count = posts?.availablePosts.count, indexPath.row == (count - 1) {
             navigationDelegate?.didGotAtTheEnd()
         }

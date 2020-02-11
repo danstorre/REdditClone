@@ -12,7 +12,6 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
     
     var posts: PostViewList
     let imageCacher: ImageCacher = ImageCacher()
-    let viewerCacher: ViewerCache = ViewerCache()
     
     init(posts: PostViewList) {
         self.posts = posts
@@ -31,6 +30,7 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
             fatalError("PostTableViewCell cell not found")
         }
         let postViewForCell = posts.availablePosts[indexPath.row]
+        cell.showIcon = !postViewForCell.isRead
         cell.commentsLabel?.text = postViewForCell.numberOfComments
         cell.descriptionLabel?.text = postViewForCell.minimumDescription
         cell.entryDate?.text = postViewForCell.readableDate
@@ -45,11 +45,6 @@ class PostsTableViewDataSource: NSObject, UITableViewDataSource {
         cell.dismissPostButton.imageView?.tintColor = UIColor(named: "yellow")
         cell.dismissPostButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         
-        viewerCacher.retrieveObject(key: postViewForCell.post.identifier) {  (postItemcache) in
-            DispatchQueue.main.async {
-                cell.showIcon = (postItemcache?.read ?? false) ? false : true
-            }
-        }
         
         return cell
     }
