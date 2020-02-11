@@ -34,20 +34,14 @@ class PostTableViewDelegate: NSObject, UITableViewDelegate, PostTableViewCellDel
         
         postView.isRead = true
         
-        do {
-            try viewerCacher.setObject(postCache: PostViewItemCache(uuid: postView.post.identifier, read: true))
-        }catch {
-            print("could not cache post viewed with identifier: \(postView.post.identifier)")
-        }
-        
-        tableView.performBatchUpdates({
-            if let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell {
-                UIView.animate(withDuration: 0.3) { [weak self] in
-                    cell.readIcon.isHidden = true
-                    self?.navigationDelegate?.userDidSelectOn(postView: postView)
-                }
+        if let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell {
+            do {
+                try viewerCacher.setObject(postCache: PostViewItemCache(uuid: postView.post.identifier, read: true))
+            }catch {
+                print("could not cache post viewed with identifier: \(postView.post.identifier)")
             }
-        }) { (completed) in
+            cell.showIcon = false
+            navigationDelegate?.userDidSelectOn(postView: postView)
         }
     }
     

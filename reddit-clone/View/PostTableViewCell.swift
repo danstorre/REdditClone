@@ -22,17 +22,14 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet var commentsLabel: UILabel!
     @IBOutlet var dismissPostButton: UIButton!
     @IBOutlet var descriptionLabel: UILabel!
-    
-    
+    var showIcon: Bool = true {
+        didSet {
+            readIcon.isHidden = !showIcon
+        }
+    }
     var delegate: PostTableViewCellDelegate?
     
     var identifierPost: String?
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        // Initialization code
-    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
