@@ -11,13 +11,22 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var postCacheArray = [PostViewItemCache]()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        
+        // read saved nsuserdefaults from read posts
+        if let mementocachedPostViewList = CacheSaver.restore(saveName: CacheSaver.keyPostViewCacheList) as? Memento,
+           let postCacheArrayFromMemento =  PostViewCacheList(memento: mementocachedPostViewList)?.postCacheArray{
+            postCacheArray = postCacheArrayFromMemento
+        }
+        
+        
         return true
     }
 
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

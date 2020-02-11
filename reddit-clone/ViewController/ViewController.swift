@@ -33,7 +33,6 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
-        
         loadData()
         let string = "Pull to refresh"
         let mutableAtributesString = NSMutableAttributedString(string: string)
@@ -45,6 +44,14 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
         refreshControl.tintColor = .white
         tableView.addSubview(refreshControl)
         tableView.isPagingEnabled = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            CacheSaver.setObject(postCacheList: PostViewCacheList(postCacheArray: appDelegate.postCacheArray))
+        }
+        
     }
     
     func loadData() {
@@ -121,6 +128,13 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
             }
             
             let postViews = postList.posts.map { (post) -> PostView in
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                    if let postSeen = appDelegate.postCacheArray.first(where: { (postCache) -> Bool in
+                        return postCache.uuid == post.identifier
+                    }) {
+                        return PostView(post: post, isRead: postSeen.read)
+                    }
+                }
                 return PostView(post: post, isRead: false)
             }
             
