@@ -23,13 +23,13 @@ class ImageCacher {
         guard let image = object else {
             throw ErrorCache.noImageToCache
         }
-        queue.async {
+        queue.sync {
             ImageCacher.cache.setObject(image, forKey: key.absoluteString as NSString)
         }
     }
     
     func retrieveObject(key: URL, closure: @escaping (UIImage?) -> ()){
-        queue.async {
+        queue.sync {
             closure(ImageCacher.cache.object(forKey: key.absoluteString as NSString))
         }
     }

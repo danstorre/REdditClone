@@ -21,18 +21,18 @@ class PostViewItemCache {
 }
 
 
-class ViewerCache {
+class ViewerCache: NSObject {
     
     let queue = DispatchQueue(label: "ViewerCache")
     
     func setObject(postCache: PostViewItemCache) throws{
-        queue.async {
+        queue.sync {
             ViewerCache.cache.setObject(postCache, forKey: postCache.uuid.description as NSString)
         }
     }
     
     func retrieveObject(key: String, closure: @escaping (PostViewItemCache?) -> ()){
-        queue.async {
+        queue.sync {
             closure(ViewerCache.cache.object(forKey: key.description as NSString))
         }
     }
