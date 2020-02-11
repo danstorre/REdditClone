@@ -8,8 +8,63 @@
 
 import Foundation
 
+typealias Memento = [String: Any]
 
-class PostViewItemCache {
+protocol MementoConvertible {
+    var memento: Memento? { get }
+    init?(memento: Memento)
+}
+
+enum CacheSaver {
+
+    static let keyPostViewCacheList = "keyPostViewCacheList"
+    static func setObject(postCacheList: PostViewCacheList) {
+        UserDefaults.standard.set(postCacheList.memento, forKey: CacheSaver.keyPostViewCacheList)
+    }
+
+    static func restore(saveName: String) -> Any? {
+        return UserDefaults.standard.object(forKey: saveName)
+    }
+}
+
+
+class PostViewCacheList: MementoConvertible {
+    
+    private enum Keys {
+        static let postCacheArray = "postCacheArray"
+    }
+    
+    required init?(memento: Memento) {
+        guard let postCacheArrayMemento = memento[Keys.postCacheArray] as? Data else {
+            return nil
+        }
+        
+        let json = JSONDecoder()
+        
+        if let postCacheArrayMemento = try? json.decode([PostViewItemCache].self, from: postCacheArrayMemento) {
+            postCacheArray = postCacheArrayMemento
+        }else {
+            fatalError("cannot initialize PostViewCacheList")
+        }
+    }
+    
+    var postCacheArray: [PostViewItemCache]
+    
+    init(postCacheArray: [PostViewItemCache]) {
+        self.postCacheArray = postCacheArray
+    }
+    
+    var memento: Memento? {
+        let jsonEncoder = JSONEncoder()
+        guard let postCacheArrayEncoded = try? jsonEncoder.encode(postCacheArray) else {
+            return nil
+        }
+        return [Keys.postCacheArray:  postCacheArrayEncoded]
+    }
+    
+}
+
+struct PostViewItemCache: Codable{
     
     let uuid: String
     let read: Bool
@@ -20,35 +75,6 @@ class PostViewItemCache {
     }
 }
 
-
-class ViewerCache: NSObject {
-    
-    let queue = DispatchQueue(label: "ViewerCache")
-    
-    func setObject(postCache: PostViewItemCache) throws{
-        queue.sync {
-            ViewerCache.cache.setObject(postCache, forKey: postCache.uuid.description as NSString)
-        }
-    }
-    
-    func retrieveObject(key: String, closure: @escaping (PostViewItemCache?) -> ()){
-        queue.sync {
-            closure(ViewerCache.cache.object(forKey: key.description as NSString))
-        }
-    }
-    
-    static let cache: NSCache<NSString, PostViewItemCache> = {
-        let cache = NSCache<NSString, PostViewItemCache>()
-        
-        cache.name = "ViewerCache"
-        
-        // Max 60 images in memory.
-        cache.countLimit = 10000
-        
-        // Max 100 MB used.
-        cache.totalCostLimit = 100 * 1024 * 1024
-        
-        return cache
-    }()
+extension PostViewItemCache: Hashable{
     
 }
