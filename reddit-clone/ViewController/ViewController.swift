@@ -42,8 +42,9 @@ class ViewController: UIViewController, PostTableViewCellDelegate, NavigationPos
         
         refreshControl.attributedTitle = mutableAtributesString
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        refreshControl.tintColor = .white
         tableView.addSubview(refreshControl)
-        tableView.isPagingEnabled = true
+        tableView.isPagingEnabled = false
     }
     
     func loadData() {
